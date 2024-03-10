@@ -189,6 +189,8 @@ img {
 
 /* dropdown menu items*/
 
+
+
 .dropdown-wrapper {
   flex-direction: column;
   position: relative;
@@ -233,6 +235,10 @@ img {
 }
 
 @media screen and (max-width: 667px) {
+
+  .mobile-menu {
+  display:flex;
+}
 
   /* navigation */
   .bari-produce-logo {
