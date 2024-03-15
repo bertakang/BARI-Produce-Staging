@@ -3,15 +3,15 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 interface RecipeCard {
-  recipe: string;
-  recipe_image: string;
+  name: string;
+  image: string;
   recipe_description: string;
 }
 
 const recipe_cards = ref<RecipeCard[]>([]);
 
 const getRecipeCards = () => {
-  const path = 'https://bari-produce-project.wl.r.appspot.com/';
+  const path = 'https://bertakang.pythonanywhere.com/';
 
   axios.get(path)
     .then((res) => {
@@ -29,22 +29,23 @@ getRecipeCards();
 <template>
   <div class="RecipeCard">
     <ul class="card-wrapper-vertical">
-      <li v-for="card in recipe_cards">
-        <div class="card-details">
-          <div class="header">
-            <h2> {{ card.recipe }}</h2>
-            <h3> 10-15 Minutes</h3>
+      <Router-Link v-for="card in recipe_cards" :to="`/Recipe/${card.name}`" :key="card.id">
+        <li>
+          <div class="card-details">
+            <div class="header">
+              <h2> {{ card.name }}</h2>
+              <h3> {{ card.time }}</h3>
+            </div>
+            <div class="card-image">
+              <img src="../assets/images/recipes.jpg">
+            </div>
+            <p>{{ card.description }}</p>
+            <div class="button-wrapper">
+              <button>Details</button>
+            </div>
           </div>
-          <div class="card-image">
-            <img src="../assets/images/recipes.jpg">
-          </div>
-          <p>{{ card.description }}</p>
-          <div class="button-wrapper">
-            <button>Details</button>
-          </div>
-        </div>
-
-      </li>
+        </li>
+      </Router-Link>
     </ul>
   </div>
 </template>
@@ -100,4 +101,5 @@ p {
   ;
   height: 100%;
   margin: 8px 0px;
-}</style>
+}
+</style>

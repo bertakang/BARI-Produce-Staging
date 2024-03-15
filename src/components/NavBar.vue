@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import DropdownMenuItem from './DropdownMenuItem.vue';
+import RecipeDropdownMenuItem from './RecipeDropDownMenuItem.vue';
 import axios from 'axios';
 
 // Declare refs
@@ -12,7 +13,7 @@ const recipeNames = ref<string[]>([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('https://bari-produce-project.wl.r.appspot.com/');
+    const response = await axios.get('https://bertakang.pythonanywhere.com/');
     // Assign values to the fruitNames and grapeNames refs
     fruitNames.value = response.data.fruit_cards.map(fruit => fruit.name);
     grapeNames.value = response.data.grape_cards.map(grape => grape.name);
@@ -108,9 +109,9 @@ const toggleMobileMenu = () => {
         <div class="dropdown-wrapper">
           <div class="link" @click="toggleRecipeDropdown()">Recipe</div>
           <div class="recipe-dropdown">
-            <DropdownMenuItem v-show="dropdownRecipeOpen" @mouseleave="toggleRecipeDropdown(false)"
-              v-for="recipeName in recipeNames" :key="recipeName" :link="recipeName" :category="grapeType">
-            </DropdownMenuItem>
+            <RecipeDropdownMenuItem v-show="dropdownRecipeOpen" @mouseleave="toggleRecipeDropdown(false)"
+              v-for="recipeName in recipeNames" :key="recipeName" :link="recipeName">
+            </RecipeDropdownMenuItem>
           </div>
 
         </div>

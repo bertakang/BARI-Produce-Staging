@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 
 export default defineConfig({
-  base: '/BARI-Produce-Staging/',
+  // base: '/BARI-Produce-Staging/',
   plugins: [
     vue({
       template: {

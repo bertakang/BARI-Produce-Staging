@@ -9,8 +9,6 @@ const props = defineProps<{
   gallery?: string
 }>()
 
-console.log(props.name)
-
 const modalVisible = ref<boolean>(false);
 
 const toggleModal = () => {
