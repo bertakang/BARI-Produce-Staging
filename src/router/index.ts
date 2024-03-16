@@ -2,13 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import FruitsView from '../views/fruits/FruitsView.vue';
 import GrapesView from '../views/grapes/GrapesView.vue';
-import RecipesView from '../views/recipes/RecipesView.vue';
 import axios from 'axios';
 
-const fruitPath = 'https://bertakang.pythonanywhere.com/fruit';
-const grapePath = 'https://bertakang.pythonanywhere.com/grape';
-const recipePath = 'https://bertakang.pythonanywhere.com/recipe';
-
+const fruitPath = 'https://bari-produce-project.wl.r.appspot.com/fruit';
+const grapePath = 'https://bari-produce-project.wl.r.appspot.com/grape';
 // Fetch fruit data from the backend
 const fetchFruitData = async () => {
   try {
@@ -25,55 +22,31 @@ const fetchGrapeData = async () => {
     const response = await axios.get(grapePath);
     return response.data.grape_info;
   } catch (error) {
-    console.error('Error fetching grape data:', error);
+    console.error('Error fetching fruit data:', error);
     return [];
   }
 };
-
-const fetchRecipeData = async () => {
-  try {
-    const response = await axios.get(recipePath);
-    return response.data.recipe_info;
-  } catch (error) {
-    console.error('Error fetching recipe data:', error);
-    return [];
-  }
-};
-
-const sanitizeName = (name) => {
-  // Replace apostrophes with a safe character, such as underscore
-  return name.replace(/'/g, '_');
-};
-
 
 // Define the routes dynamically based on fetched fruit data
 const createRoutes = async () => {
   const fruitData = await fetchFruitData();
   const grapeData = await fetchGrapeData();
-  const recipeData = await fetchRecipeData();
 
   const fruitRoutes = fruitData.map(fruit => ({
-    path: `/Fruit/${sanitizeName(fruit.name)}`,
+    path: `/Fruit/${fruit.name}`,
     name: fruit.name,
     component: FruitsView,
     props: { fruit },   
   }));
 
   const grapeRoutes = grapeData.map(grape => ({
-    path: `/Grape/${sanitizeName(grape.name)}`,
+    path: `/Grape/${grape.name}`,
     name: grape.name,
     component: GrapesView,
     props: { grape },   
   }));
 
-  const recipeRoutes = recipeData.map(recipe => ({
-    path: `/Recipe/${sanitizeName(recipe.name)}`,
-    name: recipe.name,
-    component: RecipesView,
-    props: { recipe },   
-  }));
-
-  return [...fruitRoutes, ...grapeRoutes, ...recipeRoutes];
+  return [...fruitRoutes, ...grapeRoutes];
 };
 
 // Create the router
@@ -94,11 +67,6 @@ const router = createRouter({
       path: '/Grape/:name',
       name: 'grape',
       component: GrapesView,
-    },
-    {
-      path: '/Recipe/:name',
-      name: 'recipe',
-      component: RecipesView,
     }
   ]
 });

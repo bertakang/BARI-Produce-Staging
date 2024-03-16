@@ -14,7 +14,7 @@ interface FruitCard {
 const fruit_cards = ref<FruitCard[]>([]);
 
 const getFruitCards = () => {
-  const path = 'https://bertakang.pythonanywhere.com/';
+  const path = 'https://bari-produce-project.wl.r.appspot.com/';
 
   axios.get(path)
     .then((res) => {
