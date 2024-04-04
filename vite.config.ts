@@ -4,7 +4,6 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 
 export default defineConfig({
-  base: '/BARI-Produce-Staging/',
   plugins: [
     vue({
       template: {
@@ -15,6 +14,7 @@ export default defineConfig({
     }),
     vueJsx()
   ],
+  base: "/BARI-Produce-Staging/", // Moved base property outside plugins array
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
