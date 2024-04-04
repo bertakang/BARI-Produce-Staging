@@ -12,7 +12,7 @@ const recipeNames = ref<string[]>([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('https://bari-produce-project.wl.r.appspot.com/');
+    const response = await axios.get('https://bertakang.pythonanywhere.com/');
     // Assign values to the fruitNames and grapeNames refs
     fruitNames.value = response.data.fruit_cards.map(fruit => fruit.name);
     grapeNames.value = response.data.grape_cards.map(grape => grape.name);

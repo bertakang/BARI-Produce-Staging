@@ -11,7 +11,7 @@ interface RecipeCard {
 const recipe_cards = ref<RecipeCard[]>([]);
 
 const getRecipeCards = () => {
-  const path = 'https://bari-produce-project.wl.r.appspot.com/';
+  const path = 'https://bertakang.pythonanywhere.com/';
 
   axios.get(path)
     .then((res) => {

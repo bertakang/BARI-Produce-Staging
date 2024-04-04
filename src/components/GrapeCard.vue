@@ -14,7 +14,7 @@ interface GrapeCard {
 const grape_cards = ref<GrapeCard[]>([]);
 
 const getGrapeCards = () => {
-  const path = 'https://bari-produce-project.wl.r.appspot.com/';
+  const path = 'https://bertakang.pythonanywhere.com/';
 
   axios.get(path)
     .then((res) => {

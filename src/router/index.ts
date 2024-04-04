@@ -4,8 +4,8 @@ import FruitsView from '../views/fruits/FruitsView.vue';
 import GrapesView from '../views/grapes/GrapesView.vue';
 import axios from 'axios';
 
-const fruitPath = 'https://bari-produce-project.wl.r.appspot.com/fruit';
-const grapePath = 'https://bari-produce-project.wl.r.appspot.com/grape';
+const fruitPath = 'https://bertakang.pythonanywhere.com/fruit';
+const grapePath = 'https://bertakang.pythonanywhere.com/grape';
 // Fetch fruit data from the backend
 const fetchFruitData = async () => {
   try {
