@@ -9,7 +9,7 @@ const Grape = ref(null);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('https://bari-produce-project.wl.r.appspot.com/grape');
+    const response = await axios.get('https://bertakang.pythonanywhere.com/grape');
     const GrapeInfo = response.data.grape_info;
     
     let selectedGrape = null;

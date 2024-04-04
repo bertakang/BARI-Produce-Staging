@@ -3,13 +3,13 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import FruitInfo from './FruitInfo.vue';
 
-const endpoint = window.location.pathname; // Get the current endpoint
-const fruitName = endpoint.split('/').pop(); // Extract the fruit name from the endpoint
+const endpoint = window.location.pathname; 
+const fruitName = endpoint.split('/').pop(); 
 const fruit = ref(null);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('https://bari-produce-project.wl.r.appspot.com/fruit');
+    const response = await axios.get('https://bertakang.pythonanywhere.com/fruit');
     const fruitInfo = response.data.fruit_info;
     
     let selectedFruit = null;
