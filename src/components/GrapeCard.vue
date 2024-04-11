@@ -8,33 +8,50 @@ const router = useRouter();
 interface GrapeCard {
   name: string;
   type: string;
+  file_path: string;
   description: string;
 }
 
 const grape_cards = ref<GrapeCard[]>([]);
 
 const getGrapeCards = () => {
-  const path = 'https://bertakang.pythonanywhere.com/';
+  const mainPath = 'https://bertakang.pythonanywhere.com/';
+  const imagePath = 'https://bertakang.pythonanywhere.com/images';
 
-  axios.get(path)
-    .then((res) => {
-      grape_cards.value = res.data.grape_cards;
-    })
-    .catch((err) => {
-      console.error(err);
+  axios.all([
+    axios.get(mainPath),
+    axios.get(imagePath)
+  ])
+  .then(axios.spread((mainRes, imageRes) => {
+    const grapeCardsData = mainRes.data.grape_cards;
+    const grapeImagesData = imageRes.data.grape_images;
+
+    const mergedData = grapeCardsData.map((grape: any) => {
+      const correspondingImage = grapeImagesData.find((image: any) => image.grape_options === grape.name);
+      return {
+        name: grape.name,
+        file_path: correspondingImage ? correspondingImage.file_path : '',
+        description: grape.description,
+        type: grape.type
+      };
     });
+
+    grape_cards.value = mergedData;
+  }))
+  .catch((error) => {
+    console.error('Error fetching grape cards:', error);
+  });
 };
-
-
 
 getGrapeCards();
 </script>
 
 
+
 <template>
   <div class="GrapeCard">
     <ul class="card-wrapper-horizontal">
-      <Router-Link v-for="card in grape_cards" :to="`/Grape/${card.name}`" :key="card.id">
+      <Router-Link v-for="card in grape_cards" :to="`/Grape/${card.name}`" :key="card.name">
         <li>
           <div class="card-details">
             <div class="header">
@@ -42,7 +59,7 @@ getGrapeCards();
               <h3>{{ card.type }}</h3>
             </div>
             <div class="card-image">
-              <img src="../assets/images/grapes.jpg" alt="Grape Image">
+              <img :src="'https://www.pythonanywhere.com/user/bertakang/files/home/bertakang/mysite/' + card.file_path">
             </div>
             <p>{{ card.description }}</p>
             <div class="button-wrapper">

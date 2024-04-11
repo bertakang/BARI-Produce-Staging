@@ -1,39 +1,69 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, computed, onBeforeMount } from 'vue';
+import axios from 'axios';
 
 const props = defineProps<{
   name?: string,
   generalinfo?: string,
   healthbenefits?: string,
   PLUinfo?: string,
-  gallery?: string
 }>()
 
-console.log(props.name)
-
 const modalVisible = ref<boolean>(false);
+const filePathsByGrapeOption = ref<any>({});
+const selectedImage = ref<string>(''); 
 
 const toggleModal = () => {
   modalVisible.value = !modalVisible.value;
 };
+
+const openModal = (filePath: string) => {
+  selectedImage.value = getImageUrl(filePath);
+  toggleModal(); // Open the modal
+};
+
+const getImageUrl = (filePath: string) => {
+  return `https://www.pythonanywhere.com/user/bertakang/files/home/bertakang/mysite/${filePath}`;
+};
+
+onBeforeMount(async () => {
+  try {
+    const response = await axios.get(`https://bertakang.pythonanywhere.com/images`);
+    const grape_images = response.data.grape_images;
+    
+    grape_images.forEach(image => {
+      const file_path = image.file_path;
+      const grape_option = image.grape_options;
+
+      if (!filePathsByGrapeOption.value[grape_option]) {
+        filePathsByGrapeOption.value[grape_option] = [];
+      }
+      filePathsByGrapeOption.value[grape_option].push(file_path);
+    });
+
+    console.log("filePathsByGrapeOption:", filePathsByGrapeOption);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 </script>
 
 <template>
-  <div class="FruitInfo">
+  <div class="grapeInfo">
     <div class="modal" v-if="modalVisible">
       <div class="container-image">
         <slot />
         <div><button class="exit" @click="toggleModal()">X</button></div>
-        <div class="image-container"><img src="../../assets/images/recipes.jpg"></div>
+        <img v-if="selectedImage" :src="selectedImage" alt="Image" />
       </div>
     </div>
-    <section class="fruitspage">
-      <div class="fruits-description">
+    <section class="grapespage">
+      <div class="grapes-description">
         <modal v-if="modalVisible"></modal>
         <div class="header">
           <h2>{{ props.name }}</h2>
         </div>
-
         <div class="general-information">
           <h4>General Information</h4>
           {{ props.generalinfo }}
@@ -48,11 +78,16 @@ const toggleModal = () => {
         </div>
       </div>
       <div class="image-gallery">
-        {{ props.gallery }}
+        <template v-if="filePathsByGrapeOption[props.name]">
+          <li v-for="filePath in filePathsByGrapeOption[props.name]" :key="filePath">
+            <img :src="getImageUrl(filePath)" alt="Image" @click="openModal(filePath)" />
+          </li>
+        </template>
       </div>
     </section>
   </div>
 </template>
+
 
 
 <style scoped>
@@ -122,7 +157,7 @@ h4 {
   margin: 0px 0px 16px 0px;
 }
 
-.fruits-description {
+.grapes-description {
   margin-top: 3.5rem;
   padding: 16px 32px 0px 32px;
   font-family: 'Lato', sans-serif;
@@ -141,6 +176,10 @@ h4 {
   margin-top: 3.5rem;
 }
 
+.image-gallery li {
+  list-style: none;
+}
+
 .image {
   display: flex;
   margin-bottom: 16px;
@@ -151,12 +190,12 @@ h4 {
 }
 
 @media screen and (max-width: 667px) {
-  .fruitspage {
+  .grapespage {
     display: flex;
     flex-direction: column;
   }
 
-  .fruits-description {
+  .grapes-description {
     margin-top: 3rem;
     padding: 16px 16px 0px 16px;
     font-family: 'Lato', sans-serif;

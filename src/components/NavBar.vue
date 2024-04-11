@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import DropdownMenuItem from './DropdownMenuItem.vue';
+import RecipeDropdownMenuItem from './RecipeDropDownMenuItem.vue';
 import axios from 'axios';
 
 // Declare refs
@@ -20,10 +21,7 @@ onMounted(async () => {
 
     fruitType.value = 'Fruit'
     grapeType.value = 'Grape'
-
-    console.log('Fruit names:', fruitNames.value);
-    console.log('Grape names:', grapeNames.value);
-    console.log('Recipe names:', recipeNames.value);
+    
   } catch (error) {
     console.error('Error fetching fruit data:', error);
   }
@@ -108,14 +106,15 @@ const toggleMobileMenu = () => {
         <div class="dropdown-wrapper">
           <div class="link" @click="toggleRecipeDropdown()">Recipe</div>
           <div class="recipe-dropdown">
-            <DropdownMenuItem v-show="dropdownRecipeOpen" @mouseleave="toggleRecipeDropdown(false)"
-              v-for="recipeName in recipeNames" :key="recipeName" :link="recipeName" :category="grapeType">
-            </DropdownMenuItem>
+            <RecipeDropdownMenuItem v-show="dropdownRecipeOpen" @mouseleave="toggleRecipeDropdown(false)"
+              v-for="recipeName in recipeNames" :key="recipeName" :link="recipeName">
+            </RecipeDropdownMenuItem>
           </div>
-
         </div>
 
-        <a href="#contact" class="nav-link">Contact</a>
+  <a href="#contact" class="nav-link">Contact</a>
+
+
       </nav>
     </div>
   </header>

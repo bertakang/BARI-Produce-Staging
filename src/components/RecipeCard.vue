@@ -3,28 +3,45 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 interface RecipeCard {
-  recipe: string;
-  recipe_image: string;
-  recipe_description: string;
+  name: string;
+  file_path: string;
+  description: string;
+  time: string;
 }
 
 const recipe_cards = ref<RecipeCard[]>([]);
 
 const getRecipeCards = () => {
-  const path = 'https://bertakang.pythonanywhere.com/';
+  const mainPath = 'https://bertakang.pythonanywhere.com/';
+  const imagePath = 'https://bertakang.pythonanywhere.com/images';
 
-  axios.get(path)
-    .then((res) => {
-      recipe_cards.value = res.data.recipe_cards;
-    })
-    .catch((err) => {
-      console.error(err);
+  axios.all([
+    axios.get(mainPath),
+    axios.get(imagePath)
+  ])
+  .then(axios.spread((mainRes, imageRes) => {
+    const recipeCardsData = mainRes.data.recipe_cards;
+    const recipeImagesData = imageRes.data.recipe_images;
+
+    const mergedData = recipeCardsData.map((recipe: any) => {
+      const correspondingImage = recipeImagesData.find((image: any) => image.recipe_option === recipe.name);
+      return {
+        name: recipe.name,
+        file_path: correspondingImage ? correspondingImage.file_path : '',
+        description: recipe.description,
+        time: recipe.time
+      };
     });
+
+    recipe_cards.value = mergedData;
+  }))
+  .catch((error) => {
+    console.error('Error fetching recipe cards:', error);
+  });
 };
 
 getRecipeCards();
 </script>
-
 
 <template>
   <div class="RecipeCard">
@@ -32,11 +49,11 @@ getRecipeCards();
       <li v-for="card in recipe_cards">
         <div class="card-details">
           <div class="header">
-            <h2> {{ card.recipe }}</h2>
-            <h3> 10-15 Minutes</h3>
+            <h2> {{ card.name }}</h2>
+            <h3>{{ card.time }}</h3>
           </div>
           <div class="card-image">
-            <img src="../assets/images/recipes.jpg">
+            <img :src="'https://www.pythonanywhere.com/user/bertakang/files/home/bertakang/mysite/' + card.file_path">
           </div>
           <p>{{ card.description }}</p>
           <div class="button-wrapper">

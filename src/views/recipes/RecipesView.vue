@@ -1,124 +1,78 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import RecipeInfo from './RecipeInfo.vue';
 
-const modalVisible = ref<boolean>(true)
+const endpoint = window.location.pathname;
+const RecipeName = endpoint.split('/').pop();
+const formattedRecipeName = RecipeName.replace(/%20/g, ' ');
+const Recipe = ref(null);
 
-const toggleModal = () => {
-   modalVisible.value = !modalVisible.value
-  };
-
-
+onMounted(async () => {
+  try {
+    const response = await axios.get('https://bertakang.pythonanywhere.com/recipe');
+    const RecipeInfo = response.data.recipe_info;
+    let selectedRecipe = null;
+    for (let i = 0; i < RecipeInfo.length; i++) {
+      if (formattedRecipeName === RecipeInfo[i].name) {
+        selectedRecipe = RecipeInfo[i];
+        console.log("Selected recipe:", selectedRecipe.name, "fruitName from the API:", formattedRecipeName);
+        break;
+      }
+    }
+    Recipe.value = selectedRecipe;
+  } catch (error) {
+    console.error('Error fetching Recipe data:', error);
+  }
+});
 </script>
 
-<template>
-      <div class="modal" v-if="modalVisible">
-      <div class="container-image">
-        <slot />
-        <div><button class="exit" @click="toggleModal()">X</button></div>
-        <div class="image-container"><img src="../../assets/images/recipes.jpg"></div>
-      </div>
-    </div>
-  <section class="recipepage">
-    <div class="recipe-directions">
-      <modal v-if="modalVisible"></modal>
-      <div class="header">
-        <h2>Apricot Chicken</h2>
-        <h3>10-15 Minutes</h3>
-      </div>
-      <div class="ingredients-list">
-        <h4>Filling Ingredients</h4>
-        <ul>
-          <li>4 ripe Californian Peaches, cut into 1/8 slices</li>
-          <li>1 egg</li>
-          <li>2 tbsp flour</li>
-          <li>¼ cup brown sugar</li>
-          <li>¾ cup sugar</li>
-          <li>½ cup melted butter</li>
-          <li>½ teaspoon ground cinnamon</li>
-        </ul>
-      </div>
-      <div class="ingredients-list">
-        <h4>Crust Ingredients</h4>
-        <ul>
-          <li>2 cups all-purpose flour</li>
-          <li>1 cup shortening</li>
-          <li>½ water</li>
-        </ul>
-      </div>
-      <div class="directions-list">
-        <h4>Directions for Crust</h4>
-        <ol>
-          <li>In a large bowl, combine flour and salt.</li>
-          <li>Cut in shortening until mixture resembles coarse crumbs.</li>
-          <li>Stir in water until mixture forms a ball (may not need entire ½ cup of water).</li>
-          <li>Divide dough in half, and shape into balls.</li>
-          <li>Wrap in plastic and refrigerate preferably overnight (or at least 4 hours).</li>
-          <li>Roll out dough on a floured counter 1 ½ inches larger than your pie pan.</li>
-          <li>Press dough into bottom of pan.</li>
-          <li>Roll out remaining dough and place over pie filled pie shell (see “for filling” below).</li>
-          <li>Pinch the edges of the pie together and trim away any excess dough.</li>
-          <li>Dust top of pie with cinnamon.</li>
-        </ol>
-      </div>
-      <div class="directions-list">
-        <h4>Directions for Filling</h4>
-        <ol>
-          <li>Preheat oven to 400 degrees F.</li>
-          <li>Combine egg, flour, sugars and butter.</li>
-          <li>Fill pie shell with fresh peaches.</li>
-          <li>Pour mixture over peaches.</li>
-          <li>Bake pie in 400 degree F oven for 15 minutes.</li>
-          <li>Reduce heat to 300 degrees F and bake 50 minutes longer</li>
-        </ol>
-      </div>
-      
 
+<template>
+<section class="recipepage">
+    <div class="recipe-directions">
+      <RecipeInfo v-if="Recipe" :name="Recipe.name" :time="Recipe.time" :ingredients="Recipe.ingredients"
+        :directions="Recipe.directions" />
     </div>
-    <div class="image-gallery">
-      <div class="image" @click="toggleModal()"><img src="../../assets/images/recipes.jpg"></div>
-      <div class="image" @click="toggleModal()"><img src="../../assets/images/recipes.jpg"></div>
-      <div class="image" @click="toggleModal()"><img src="../../assets/images/recipes.jpg"></div>
-      <div class="image" @click="toggleModal()"><img src="../../assets/images/recipes.jpg"></div>
-      <div class="image" @click="toggleModal()"><img src="../../assets/images/recipes.jpg"></div>
-    </div>
-  </section>
+</section>
 </template>
 
 
 <style scoped>
 /* modal */
-button{
-    background-color: gray;
-    color:white;
+button {
+  background-color: gray;
+  color: white;
 }
+
 .modal {
-    z-index: 999;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.container-image{
-    display:flex;
-    flex-direction: column;
-    align-items: end;
-    height:64vh;
-    width:64vw;
-    object-fit:contain;
-    padding:16px;
-    border-radius: 24px;
+.container-image {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  height: 64vh;
+  width: 64vw;
+  object-fit: contain;
+  padding: 16px;
+  border-radius: 24px;
 }
 
-.image-container{
-    display:flex;
-    height:100%;
-    width:100%;
+.image-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
 }
 
 /* recipe content */

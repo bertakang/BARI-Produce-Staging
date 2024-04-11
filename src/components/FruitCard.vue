@@ -8,33 +8,50 @@ const router = useRouter();
 interface FruitCard {
   name: string;
   type: string;
+  file_path: string;
   description: string;
 }
 
 const fruit_cards = ref<FruitCard[]>([]);
 
 const getFruitCards = () => {
-  const path = 'https://bertakang.pythonanywhere.com/';
+  const mainPath = 'https://bertakang.pythonanywhere.com/';
+  const imagePath = 'https://bertakang.pythonanywhere.com/images';
 
-  axios.get(path)
-    .then((res) => {
-      fruit_cards.value = res.data.fruit_cards;
-    })
-    .catch((err) => {
-      console.error(err);
+  axios.all([
+    axios.get(mainPath),
+    axios.get(imagePath)
+  ])
+  .then(axios.spread((mainRes, imageRes) => {
+    const fruitCardsData = mainRes.data.fruit_cards;
+    const fruitImagesData = imageRes.data.fruit_images;
+
+    const mergedData = fruitCardsData.map((fruit: any) => {
+      const correspondingImage = fruitImagesData.find((image: any) => image.fruit_options === fruit.name);
+      return {
+        name: fruit.name,
+        file_path: correspondingImage ? correspondingImage.file_path : '',
+        description: fruit.description,
+        type: fruit.type
+      };
     });
+
+    fruit_cards.value = mergedData;
+  }))
+  .catch((error) => {
+    console.error('Error fetching fruit cards:', error);
+  });
 };
-
-
 
 getFruitCards();
 </script>
 
 
+
 <template>
   <div class="FruitCard">
     <ul class="card-wrapper-horizontal">
-      <Router-Link v-for="card in fruit_cards" :to="`/fruit/${card.name}`" :key="card.id">
+      <Router-Link v-for="card in fruit_cards" :to="`/Fruit/${card.name}`" :key="card.name">
         <li>
           <div class="card-details">
             <div class="header">
@@ -42,7 +59,7 @@ getFruitCards();
               <h3>{{ card.type }}</h3>
             </div>
             <div class="card-image">
-              <img src="../assets/images/stonefruit.png" alt="Fruit Image">
+              <img :src="'https://www.pythonanywhere.com/user/bertakang/files/home/bertakang/mysite/' + card.file_path">
             </div>
             <p>{{ card.description }}</p>
             <div class="button-wrapper">
@@ -56,8 +73,6 @@ getFruitCards();
     </ul>
   </div>
 </template>
-
-
 <style scoped>
 router-link {
   display: flex;

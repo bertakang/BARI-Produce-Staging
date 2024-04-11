@@ -17,14 +17,12 @@ onMounted(async () => {
     for (let i = 0; i < GrapeInfo.length; i++) {
       if (GrapeName === GrapeInfo[i].name) {
         selectedGrape = GrapeInfo[i];
-        console.log("Selected Grape:", selectedGrape.name, "GrapeName from the API:", GrapeName);
         
         break; // Exit the loop once the Grape is found
       }
     }
 
     Grape.value = selectedGrape; 
-    console.log(Grape.value)
   } catch (error) {
     console.error('Error fetching Grape data:', error);
   }

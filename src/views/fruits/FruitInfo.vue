@@ -1,30 +1,64 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, computed, onBeforeMount } from 'vue';
+import axios from 'axios';
 
 const props = defineProps<{
   name?: string,
   generalinfo?: string,
   healthbenefits?: string,
   PLUinfo?: string,
-  gallery?: string
 }>()
 
-console.log(props.name)
-
 const modalVisible = ref<boolean>(false);
+const filePathsByfruitOption = ref<any>({});
+const selectedImage = ref<string>(''); 
 
 const toggleModal = () => {
   modalVisible.value = !modalVisible.value;
 };
+
+const openModal = (filePath: string) => {
+  selectedImage.value = getImageUrl(filePath);
+  toggleModal(); // Open the modal
+};
+
+const getImageUrl = (filePath: string) => {
+  return `https://www.pythonanywhere.com/user/bertakang/files/home/bertakang/mysite/${filePath}`;
+};
+
+onBeforeMount(async () => {
+  try {
+    const response = await axios.get(`https://bertakang.pythonanywhere.com/images`);
+    const fruit_images = response.data.fruit_images;
+    
+    fruit_images.forEach(image => {
+      const file_path = image.file_path;
+      const fruit_option = image.fruit_options;
+
+      if (!filePathsByfruitOption.value[fruit_option]) {
+        filePathsByfruitOption.value[fruit_option] = [];
+      }
+      filePathsByfruitOption.value[fruit_option].push(file_path);
+    });
+
+    console.log("filePathsByfruitOption:", filePathsByfruitOption);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+const filteredFilePaths = computed(() => {
+  return filePathsByfruitOption.value[props.name] || [];
+});
 </script>
 
 <template>
-  <div class="FruitInfo">
+  <div class="fruitInfo">
     <div class="modal" v-if="modalVisible">
       <div class="container-image">
         <slot />
         <div><button class="exit" @click="toggleModal()">X</button></div>
-        <div class="image-container"><img src="../../assets/images/recipes.jpg"></div>
+        <img v-if="selectedImage" :src="selectedImage" alt="Image" />
       </div>
     </div>
     <section class="fruitspage">
@@ -33,26 +67,30 @@ const toggleModal = () => {
         <div class="header">
           <h2>{{ props.name }}</h2>
         </div>
-        
         <div class="general-information">
           <h4>General Information</h4>
           {{ props.generalinfo }}
-        </div> 
+        </div>
         <div class="general-information">
           <h4>Health Benefits</h4>
           {{ props.healthbenefits }}
         </div>
         <div class="general-information">
           <h4>PLU Information</h4>
-          {{ props.PLUinfo}}
+          {{ props.PLUinfo }}
         </div>
       </div>
       <div class="image-gallery">
-        {{ props.gallery }}
+        <template v-if="filePathsByfruitOption[props.name]">
+          <li v-for="filePath in filePathsByfruitOption[props.name]" :key="filePath">
+            <img :src="getImageUrl(filePath)" alt="Image" @click="openModal(filePath)" />
+          </li>
+        </template>
       </div>
     </section>
   </div>
 </template>
+
 
 
 <style scoped>
@@ -139,6 +177,10 @@ h4 {
   background-color: #A78895;
   padding: 16px;
   margin-top: 3.5rem;
+}
+
+.image-gallery li {
+  list-style: none;
 }
 
 .image {
