@@ -6,7 +6,7 @@ import RecipeCard from './RecipeCard.vue';
   <section id="recipes">
       <div class="sticky">
         <div class="text-block">
-          <h1>Recipe</h1>
+          <h1>Recipes</h1>
           <p>We’ve included some of our favorite recipes, using fresh fruit. Our list includes everything from the
             old-fashioned to fresh new twists. Learn how to include peaches in a power smoothie or a tasty desert to help
             cool off in the summer. We’ve also included grandma’s own peach pie recipe. Mmm Mmm! Our other recipes will

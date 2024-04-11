@@ -83,7 +83,7 @@ const toggleMobileMenu = () => {
         <a href="/" class="nav-link">Home</a>
         <a href="#about" class="nav-link">About</a>
         <div class="dropdown-wrapper">
-          <div class="link" @click="toggleProductDropdown()">Product</div>
+          <div class="link" @click="toggleProductDropdown()">Products</div>
           <div class="dropdown-menu" v-show="dropdownProductOpen">
             <div class="fruit-dropdown">
               <div class="sub-link" @mouseover="toggleFruitSubDropdown(true)" @click="toggleFruitSubDropdown(true)">
@@ -104,7 +104,7 @@ const toggleMobileMenu = () => {
           </div>
         </div>
         <div class="dropdown-wrapper">
-          <div class="link" @click="toggleRecipeDropdown()">Recipe</div>
+          <div class="link" @click="toggleRecipeDropdown()">Recipes</div>
           <div class="recipe-dropdown">
             <RecipeDropdownMenuItem v-show="dropdownRecipeOpen" @mouseleave="toggleRecipeDropdown(false)"
               v-for="recipeName in recipeNames" :key="recipeName" :link="recipeName">
@@ -175,6 +175,7 @@ img {
   font-size: 20px;
   text-transform: uppercase;
   color:#FED1EB;
+  font-weight: 600;
 }
 
 .sub-link {
@@ -209,7 +210,7 @@ img {
   display: flex;
   flex-direction: column;
   background: #7E315D;
-
+  width:max-content;
 }
 
 .dropdown-menu {

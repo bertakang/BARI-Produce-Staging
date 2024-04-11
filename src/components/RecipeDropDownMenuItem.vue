@@ -19,6 +19,7 @@ const sanitizeLink = (link) => {
 <style scoped>
 .dropdown-menu-item {
   display: flex;
+
   top: 0;
 }
 .dropdown-wrapper {
@@ -27,6 +28,7 @@ const sanitizeLink = (link) => {
   position: relative;
 }
 .dropdown-link {
+  display:flex;
   padding: 8px 16px 8px 16px;
   font-family: 'Lato', sans-serif;
   font-weight: 400;
