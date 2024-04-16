@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const props = defineProps<{
   name: string,
-  gallery: string
   time: string,
   ingredients: string,
   directions: string

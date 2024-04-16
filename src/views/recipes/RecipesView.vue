@@ -5,7 +5,7 @@ import RecipeInfo from './RecipeInfo.vue';
 
 const endpoint = window.location.pathname;
 const RecipeName = endpoint.split('/').pop();
-const formattedRecipeName = RecipeName.replace(/%20/g, ' ');
+const formattedRecipeName = RecipeName ? RecipeName.replace(/%20/g, ' ') : ''; 
 const Recipe = ref<{
   name: string,
   ingredients: string,
