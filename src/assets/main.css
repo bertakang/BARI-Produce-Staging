@@ -3,16 +3,12 @@
 a,
 .green {
   text-decoration: none;
-  color: #F9E4F0;
   font-weight: 600;
-  transition: 0.4s;
   padding: 3px;
+  color:  #FED1EB;
 }
 
 @media (hover: hover) {
-  a:hover {
-    background-color:pink;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -34,8 +30,6 @@ a,
   }
   
 }
-
-
 
 html{
   scroll-snap-type: y mandatory;

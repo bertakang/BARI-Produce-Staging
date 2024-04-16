@@ -55,15 +55,14 @@ import AboutSection from '../components/AboutSection.vue';
           <p>Our table grape varieties include: Flames, Thomcords, Ivory, Champagne, Valley Pearls, Red Globes, Summer
             Royals, Autumn Royal, Autumn King, Scarlet Royal, and Vintage Red.</p>
         </div>
-
       </div>
     </section>
     <section id="tablegrapes-menu" class="menu">
       <GrapeMenuSection></GrapeMenuSection>
     </section>
-    <div id="recipes">
+    <section id="recipes">
       <RecipeSection></RecipeSection>
-    </div>
+    </section>
   </main>
 </template>
 

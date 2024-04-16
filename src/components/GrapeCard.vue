@@ -78,17 +78,22 @@ getGrapeCards();
 <style scoped>
 router-link {
   display: flex;
-  flex-grow: 1;
-  height: 100%;
+  flex-grow:1;
+  height:100%;
+}
+
+a{
+  flex: 0 0 33.33%; 
+  color: #7E315D;
 }
 
 li {
-  height: 100%;
+  height:100%;
 }
 
 h2 {
   font-size: 22px;
-  font-weight: 600;
+  font-weight:600;
 }
 
 h3 {
@@ -98,7 +103,6 @@ h3 {
 p {
   font-size: 20px;
 }
-
 .button-wrapper {
   display: flex;
   flex-grow: 1;
@@ -108,15 +112,15 @@ p {
 
 .card-wrapper-horizontal {
   display: flex;
-  max-height: 86vh;
+  max-height:86vh;
   flex-direction: row;
+  justify-content: space-between; 
 }
 
 .header {
   height: 64px;
-  width: auto;
+  width:auto;
 }
-
 .card-image {
   height: 200px;
   width: auto;
@@ -127,15 +131,15 @@ p {
   font-family: 'Lato', sans-serif;
   display: flex;
   flex-direction: column;
-  background-color: bisque;
-  border: 1px solid black;
-  color: black;
-  border-radius: 16px;
+  background-color:bisque;
+  border: 1px solid lightgray;
+  border-radius: 20px;
   padding: 16px;
-  width: 384px;
-  height: 100%;
+  height:100%;
   margin: 0px 8px;
+  flex: 0 0 33.33%; 
 }
+
 
 @media screen and (max-width: 667px) {
   h2 {

@@ -1,3 +1,16 @@
+<script setup lang="ts">
+window.onload = function() {
+  // Check if there's a hash in the URL
+  if (window.location.hash) {
+    var sectionId = window.location.hash.substring(1); // Extract section ID from hash
+    var section = document.getElementById(sectionId); // Get the section element
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' }); // Scroll to the section
+    }
+  }
+};
+</script>
+
 <template>
   <section class="contact">
     <div class="bari-produce-logo">
@@ -6,11 +19,11 @@
     <div id="contact" class="contact-wrapper">
       <div class="contact-navbar">
         <nav class="contact-nav-links-wrapper">
-          <a class="nav-link" href="#home">Home</a>
-        <a class="nav-link" href="#about">About</a>
-        <a class="nav-link" href="#product">Product</a>
-        <a class="nav-link" href="#recipes">Recipe</a>
-        <a class="nav-link" href="#contact">Contact</a>
+        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#home">Home</a>
+        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#about">About</a>
+        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#stonefruit" >Product</a>
+        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#recipes" >Recipe</a>
+        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#contact">Contact</a>
       </nav>
       </div>
       <div class="address-wrapper">

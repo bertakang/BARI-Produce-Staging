@@ -70,6 +70,7 @@ const toggleMobileMenu = () => {
     });
   }
 };
+
 </script>
 
 <template>

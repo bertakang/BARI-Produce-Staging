@@ -1,3 +1,27 @@
+<template>
+  <div class="RecipeCard">
+    <ul class="card-wrapper-vertical">
+      <li v-for="card in recipe_cards" :key="card.name">
+        <router-link :to="`/Recipe/${formatRecipeName(card.name)}`">
+          <div class="card-details">
+            <div class="header">
+              <h2> {{ card.name }}</h2>
+              <h3>{{ card.time }}</h3>
+            </div>
+            <div class="card-image">
+              <img :src="'https://www.pythonanywhere.com/user/bertakang/files/home/bertakang/mysite/' + card.file_path">
+            </div>
+            <p>{{ card.description }}</p>
+            <div class="button-wrapper">
+              <button>Details</button>
+            </div>
+          </div>
+        </router-link>
+      </li>
+    </ul>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
@@ -40,33 +64,14 @@ const getRecipeCards = () => {
   });
 };
 
+const formatRecipeName = (name: string) => name.replace(/ /g, '%20');
+
 getRecipeCards();
 </script>
 
-<template>
-  <div class="RecipeCard">
-    <ul class="card-wrapper-vertical">
-      <li v-for="card in recipe_cards">
-        <div class="card-details">
-          <div class="header">
-            <h2> {{ card.name }}</h2>
-            <h3>{{ card.time }}</h3>
-          </div>
-          <div class="card-image">
-            <img :src="'https://www.pythonanywhere.com/user/bertakang/files/home/bertakang/mysite/' + card.file_path">
-          </div>
-          <p>{{ card.description }}</p>
-          <div class="button-wrapper">
-            <button>Details</button>
-          </div>
-        </div>
-
-      </li>
-    </ul>
-  </div>
-</template>
-
 <style scoped>
+
+
 h2 {
   font-size: 22px;
   font-weight: 600;
@@ -114,7 +119,7 @@ p {
   border-radius: 16px;
   padding: 16px;
   width: 100%;
-  ;
   height: 100%;
   margin: 8px 0px;
-}</style>
+}
+</style>

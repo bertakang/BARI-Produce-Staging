@@ -80,6 +80,15 @@ router-link {
   height:100%;
 }
 
+a{
+  flex: 0 0 33.33%; 
+  color: #7E315D;
+}
+
+a :hover {
+  
+}
+
 li {
   height:100%;
 }
@@ -107,6 +116,7 @@ p {
   display: flex;
   max-height:86vh;
   flex-direction: row;
+  justify-content: space-between; 
 }
 
 .header {
@@ -123,14 +133,13 @@ p {
   font-family: 'Lato', sans-serif;
   display: flex;
   flex-direction: column;
-  background-color: bisque;
-  border: 1px solid black;
-  color: black;
-  border-radius: 16px;
+  background-color:bisque;
+  border: 1px solid lightgray;
+  border-radius: 20px;
   padding: 16px;
-  width: 384px;
   height:100%;
   margin: 0px 8px;
+  flex: 0 0 33.33%; 
 }
 
 
