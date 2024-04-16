@@ -19,11 +19,11 @@ window.onload = function() {
     <div id="contact" class="contact-wrapper">
       <div class="contact-navbar">
         <nav class="contact-nav-links-wrapper">
-        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#home">Home</a>
-        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#about">About</a>
-        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#stonefruit" >Product</a>
-        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#recipes" >Recipe</a>
-        <a class="nav-link" href="http://localhost:5173/BARI-Produce-Staging/#contact">Contact</a>
+        <a class="nav-link" href="https://bertakang.github.io/BARI-Produce-Staging/#home">Home</a>
+        <a class="nav-link" href="https://bertakang.github.io/BARI-Produce-Staging/#about">About</a>
+        <a class="nav-link" href="https://bertakang.github.io/BARI-Produce-Staging/#stonefruit" >Product</a>
+        <a class="nav-link" href="https://bertakang.github.io/BARI-Produce-Staging/#recipes" >Recipe</a>
+        <a class="nav-link" href="https://bertakang.github.io/BARI-Produce-Staging/#contact">Contact</a>
       </nav>
       </div>
       <div class="address-wrapper">
