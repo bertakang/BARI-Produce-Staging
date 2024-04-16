@@ -3,12 +3,16 @@ import { defineProps, ref, computed, onBeforeMount } from 'vue';
 import axios from 'axios';
 
 const props = defineProps<{
-  name?: string,
-  generalinfo?: string,
+  name: string,
+  generalinfo: string,
   healthbenefits?: string,
-  PLUinfo?: string,
+  PLUinfo: string,
 }>()
 
+interface ImageData {
+  file_path: string;
+  fruit_options: string;
+}
 const modalVisible = ref<boolean>(false);
 const filePathsByfruitOption = ref<any>({});
 const selectedImage = ref<string>(''); 
@@ -31,7 +35,7 @@ onBeforeMount(async () => {
     const response = await axios.get(`https://bertakang.pythonanywhere.com/images`);
     const fruit_images = response.data.fruit_images;
     
-    fruit_images.forEach(image => {
+    fruit_images.forEach((image: ImageData)  => {
       const file_path = image.file_path;
       const fruit_option = image.fruit_options;
 

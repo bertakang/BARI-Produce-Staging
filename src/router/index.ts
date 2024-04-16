@@ -8,6 +8,28 @@ import axios from 'axios';
 const fruitPath = 'https://bertakang.pythonanywhere.com/fruit';
 const grapePath = 'https://bertakang.pythonanywhere.com/grape';
 const recipePath = 'https://bertakang.pythonanywhere.com/recipe';
+
+interface Fruit {
+  name: string;
+  path: string;
+  component: string;
+  props:string;
+};
+
+interface Grape {
+  name: string;
+  path: string;
+  component: string;
+  props:string;
+};
+
+interface Recipe {
+  name: string;
+  path: string;
+  component: string;
+  props:string;
+};
+
 // Fetch fruit data from the backend
 const fetchFruitData = async () => {
   try {
@@ -50,21 +72,21 @@ const createRoutes = async () => {
   const grapeData = await fetchGrapeData();
   const recipeData = await fetchRecipeData();
 
-  const fruitRoutes = fruitData.map(fruit => ({
+  const fruitRoutes = fruitData.map((fruit: Fruit) => ({
     path: `/Fruit/${sanitizeName(fruit.name)}`,
     name: sanitizeName(fruit.name),
     component: FruitsView,
     props: { fruit },   
   }));
 
-  const grapeRoutes = grapeData.map(grape => ({
+  const grapeRoutes = grapeData.map((grape: Grape) => ({
     path: `/Grape/${sanitizeName(grape.name)}`,
     name: sanitizeName(grape.name),
     component: GrapesView,
     props: { grape },   
   }));
 
-  const recipeRoutes = recipeData.map(recipe => ({
+  const recipeRoutes = recipeData.map((recipe: Recipe) => ({
     path: `/Recipe/${sanitizeName(recipe.name)}`,
     name: sanitizeName(recipe.name),
     component: RecipesView,

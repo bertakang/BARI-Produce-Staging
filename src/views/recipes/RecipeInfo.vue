@@ -3,12 +3,13 @@ import { defineProps, ref, onBeforeMount } from 'vue';
 import axios from 'axios';
 
 const props = defineProps<{
-  name?: string,
-  gallery?: string
-  time?: string,
-  ingredients?: string,
-  directions?: string
+  name: string,
+  gallery: string
+  time: string,
+  ingredients: string,
+  directions: string
 }>()
+
 
 //ingredients list
 const ingredients = props.ingredients;
@@ -25,7 +26,7 @@ const toggleModal = () => {
   modalVisible.value = !modalVisible.value;
 };
 
-
+const selectedImage = ref('');
 const openModal = (filePath: string) => {
   selectedImage.value = getImageUrl(filePath);
   toggleModal(); // Open the modal

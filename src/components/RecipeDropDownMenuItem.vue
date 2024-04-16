@@ -5,7 +5,7 @@ const props = defineProps<{
   link?: string
 }>()
 
-const sanitizeLink = (link) => {
+const sanitizeLink = (link: string) => {
   return link.replace(/ /g, '%20');
 }
 </script>

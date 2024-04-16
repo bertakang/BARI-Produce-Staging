@@ -5,7 +5,8 @@ import GrapeInfo from './GrapeInfo.vue';
 
 const endpoint = window.location.pathname; // Get the current endpoint
 const GrapeName = endpoint.split('/').pop(); // Extract the Grape name from the endpoint
-const Grape = ref(null);
+const Grape = ref<{ name: string, generalinfo: string, healthbenefits: string, PLUinfo: string, gallery: string[] } | null>(null);
+
 
 onMounted(async () => {
   try {

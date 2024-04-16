@@ -5,7 +5,8 @@ import FruitInfo from './FruitInfo.vue';
 
 const endpoint = window.location.pathname; 
 const fruitName = endpoint.split('/').pop(); 
-const fruit = ref(null);
+const fruit = ref<{ name: string, generalinfo: string, healthbenefits: string, PLUinfo: string, gallery: string[] } | null>(null);
+
 
 onMounted(async () => {
   try {
@@ -33,7 +34,6 @@ onMounted(async () => {
 
 <template>
   <div class="FruitsView">
-    <!-- Render the FruitInfo component with the selected fruit object -->
     <FruitInfo v-if="fruit" :name="fruit.name" :generalinfo="fruit.generalinfo" :healthbenefits="fruit.healthbenefits"
       :PLUinfo="fruit.PLUinfo" :gallery="fruit.gallery" />
   </div>

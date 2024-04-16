@@ -6,7 +6,8 @@ import RecipeInfo from './RecipeInfo.vue';
 const endpoint = window.location.pathname || '';
 const RecipeName = endpoint.split('/').pop();
 const formattedRecipeName = RecipeName.replace(/%20/g, ' ');
-const Recipe = ref<any>(null);
+const Recipe = ref<{ name: string, generalinfo: string, healthbenefits: string, PLUinfo: string, gallery: string[] } | null>(null);
+
 
 interface RecipeType {
   name: string;

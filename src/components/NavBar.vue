@@ -96,7 +96,7 @@ const toggleMobileMenu = () => {
               </div>
             </div>
             <div class="grape-dropdown">
-              <div class="sub-link" @mouseover="toggleGrapeSubDropdown(true)" @click="toggleGrapeSubDropdown()">Grapes >
+              <div class="sub-link" @mouseover="toggleGrapeSubDropdown(true)" @click="toggleGrapeSubDropdown(true)">Grapes >
               </div>
               <div class="dropdown-sub-menu" v-show="dropdownGrapeSubOpen" @mouseleave="toggleGrapeSubDropdown(false)">
                 <DropdownMenuItem v-for="grapeName in grapeNames" :key="grapeName" :link="grapeName"
@@ -106,7 +106,7 @@ const toggleMobileMenu = () => {
           </div>
         </div>
         <div class="dropdown-wrapper">
-          <div class="link" @click="toggleRecipeDropdown()">Recipes</div>
+          <div class="link" @click="toggleRecipeDropdown(true)">Recipes</div>
           <div class="recipe-dropdown">
             <RecipeDropdownMenuItem v-show="dropdownRecipeOpen" @mouseleave="toggleRecipeDropdown(false)"
               v-for="recipeName in recipeNames" :key="recipeName" :link="recipeName">
