@@ -3,20 +3,15 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import RecipeInfo from './RecipeInfo.vue';
 
-const endpoint = window.location.pathname || '';
+const endpoint = window.location.pathname;
 const RecipeName = endpoint.split('/').pop();
 const formattedRecipeName = RecipeName.replace(/%20/g, ' ');
-const Recipe = ref<{ name: string, generalinfo: string, healthbenefits: string, PLUinfo: string, gallery: string[] } | null>(null);
-
-
-interface RecipeType {
-  name: string;
-  time: string;
-  ingredients: string[];
-  directions: string[];
-}
-
-
+const Recipe = ref<{
+  name: string,
+  ingredients: string,
+  directions: string,
+  time: string 
+} | null>(null);
 
 onMounted(async () => {
   try {
