@@ -35,13 +35,13 @@ getGrapeCards();
         <div class="card-details">
           <div class="header">
             <h2> {{ card.grape }}</h2>
-            <h3>{{ card.type }}</h3>
+            <h3>{{ card.grape_type }}</h3>
           </div>
           <div class="card-image">
             <img src="../assets/images/tablegrapes.png">
           </div>
           <div class="description">
-            <p>{{ card.description }}</p>
+            <p>{{ card.grape_description }}</p>
           </div>
           <div class="button-wrapper">
             <div class="button">

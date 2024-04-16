@@ -15,12 +15,13 @@ onMounted(async () => {
   try {
     const response = await axios.get('https://bertakang.pythonanywhere.com/');
     // Assign values to the fruitNames and grapeNames refs
-    fruitNames.value = response.data.fruit_cards.map(fruit => fruit.name);
-    grapeNames.value = response.data.grape_cards.map(grape => grape.name);
-    recipeNames.value = response.data.recipe_cards.map(recipe => recipe.name)
+    fruitNames.value = response.data.fruit_cards.map((fruit: { name: string }) => fruit.name);
+    grapeNames.value = response.data.grape_cards.map((grape: { name: string }) => grape.name);
+    recipeNames.value = response.data.recipe_cards.map((recipe: { name: string }) => recipe.name);
 
-    fruitType.value = 'Fruit'
-    grapeType.value = 'Grape'
+
+    fruitType.value = ['Fruit']
+    grapeType.value = ['Grape'];
     
   } catch (error) {
     console.error('Error fetching fruit data:', error);
@@ -37,7 +38,7 @@ const toggleProductDropdown = () => {
 // Dropdown recipe menu
 const dropdownRecipeOpen = ref<boolean>(false);
 
-const toggleRecipeDropdown = () => {
+const toggleRecipeDropdown = (value: boolean) => {
   dropdownRecipeOpen.value = !dropdownRecipeOpen.value;
 }
 
@@ -45,14 +46,14 @@ const toggleRecipeDropdown = () => {
 // Dropdown fruit sub-menu
 const dropdownFruitSubOpen = ref<boolean>(false);
 
-const toggleFruitSubDropdown = () => {
+const toggleFruitSubDropdown = (value: boolean) => {
   dropdownFruitSubOpen.value = !dropdownFruitSubOpen.value;
 }
 
 // Dropdown grape sub-menu
 const dropdownGrapeSubOpen = ref<boolean>(false);
 
-const toggleGrapeSubDropdown = () => {
+const toggleGrapeSubDropdown = (value: boolean) => {
   dropdownGrapeSubOpen.value = !dropdownGrapeSubOpen.value;
 }
 
@@ -91,7 +92,7 @@ const toggleMobileMenu = () => {
                 Fruits ></div>
               <div class="dropdown-sub-menu" v-show="dropdownFruitSubOpen" @mouseleave="toggleFruitSubDropdown(false)">
                 <DropdownMenuItem v-for="fruitName in fruitNames" :key="fruitName" :link="fruitName"
-                  :category="fruitType"></DropdownMenuItem>
+                  :category="fruitType[0]"></DropdownMenuItem>
               </div>
             </div>
             <div class="grape-dropdown">
@@ -99,7 +100,7 @@ const toggleMobileMenu = () => {
               </div>
               <div class="dropdown-sub-menu" v-show="dropdownGrapeSubOpen" @mouseleave="toggleGrapeSubDropdown(false)">
                 <DropdownMenuItem v-for="grapeName in grapeNames" :key="grapeName" :link="grapeName"
-                  :category="grapeType"></DropdownMenuItem>
+                  :category="grapeType[0]"></DropdownMenuItem>
               </div>
             </div>
           </div>

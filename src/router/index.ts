@@ -39,7 +39,7 @@ const fetchRecipeData = async () => {
   }
 };
 
-const sanitizeName = (name) => {
+const sanitizeName = (name: string) => {
   // Replace apostrophes with a safe character, such as underscore
   return name.replace(/ /g, '%20');
 };
@@ -87,16 +87,19 @@ const router = createRouter({
       path: '/Fruit/:name',
       name: 'fruit',
       component: FruitsView,
+      props: (route) => ({ fruit: route.params.fruit }),
     },
     {
       path: '/Grape/:name',
       name: 'grape',
       component: GrapesView,
+      props: (route) => ({ grape: route.params.grape }),
     },
     {
       path: '/Recipe/:name',
       name: 'recipe',
       component: RecipesView,
+      props: (route) => ({ recipe: route.params.recipe }),
     }
   ]
 });
