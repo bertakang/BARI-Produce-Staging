@@ -89,14 +89,14 @@ const toggleMobileMenu = () => {
           <div class="dropdown-menu" v-show="dropdownProductOpen">
             <div class="fruit-dropdown">
               <div class="sub-link" @mouseover="toggleFruitSubDropdown(true)" @click="toggleFruitSubDropdown(true)">
-                Fruits ></div>
+                <a href="https://bertakang.github.io/BARI-Produce-Staging/#stonefruit">Fruits ></a></div>
               <div class="dropdown-sub-menu" v-show="dropdownFruitSubOpen" @mouseleave="toggleFruitSubDropdown(false)">
                 <DropdownMenuItem v-for="fruitName in fruitNames" :key="fruitName" :link="fruitName"
                   :category="fruitType[0]"></DropdownMenuItem>
               </div>
             </div>
             <div class="grape-dropdown">
-              <div class="sub-link" @mouseover="toggleGrapeSubDropdown(true)" @click="toggleGrapeSubDropdown(true)">Grapes >
+              <div class="sub-link" @mouseover="toggleGrapeSubDropdown(true)" @click="toggleGrapeSubDropdown(true)"><a href="https://bertakang.github.io/BARI-Produce-Staging/#tablegrapes">Grapes ></a>
               </div>
               <div class="dropdown-sub-menu" v-show="dropdownGrapeSubOpen" @mouseleave="toggleGrapeSubDropdown(false)">
                 <DropdownMenuItem v-for="grapeName in grapeNames" :key="grapeName" :link="grapeName"
@@ -106,8 +106,8 @@ const toggleMobileMenu = () => {
           </div>
         </div>
         <div class="dropdown-wrapper">
-          <div class="link" @click="toggleRecipeDropdown(true)">Recipes</div>
-          <div class="recipe-dropdown">
+          <div class="link" @click="toggleRecipeDropdown(true)" ><a href="https://bertakang.github.io/BARI-Produce-Staging/#recipes">Recipes</a></div>
+          <div class="recipe-dropdown" >
             <RecipeDropdownMenuItem v-show="dropdownRecipeOpen" @mouseleave="toggleRecipeDropdown(false)"
               v-for="recipeName in recipeNames" :key="recipeName" :link="recipeName">
             </RecipeDropdownMenuItem>
