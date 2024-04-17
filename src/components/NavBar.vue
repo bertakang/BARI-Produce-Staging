@@ -82,8 +82,8 @@ const toggleMobileMenu = () => {
       </div>
       <div class="mobile-menu" @click="toggleMobileMenu">MENU</div>
       <nav class="nav-links-wrapper">
-        <a href="/" class="nav-link">Home</a>
-        <a href="#about" class="nav-link">About</a>
+        <a href="https://bertakang.github.io/BARI-Produce-Staging/#home" class="nav-link">Home</a>
+        <a href="https://bertakang.github.io/BARI-Produce-Staging/#about" class="nav-link">About</a>
         <div class="dropdown-wrapper">
           <div class="link" @click="toggleProductDropdown()">Products</div>
           <div class="dropdown-menu" v-show="dropdownProductOpen">
